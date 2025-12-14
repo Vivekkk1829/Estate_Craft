@@ -16,13 +16,26 @@
 
   const app = express();
 
-  app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+ app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // Postman, server calls
 
-app.options('*', cors());
+      if (
+        origin === "http://localhost:3000" ||
+        origin.endsWith(".vercel.app")
+      ) {
+        return callback(null, true);
+      }
+
+      callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+  })
+);
+
+app.options("*", cors());
+
 
 
 
