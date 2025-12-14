@@ -10,6 +10,9 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Tooltip, Legend, PieChart, Pie, Cell } from 'recharts';
 
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
+
 const EmployeePage = () => {
     const [title, setTitle] = useState('');
     const [image, setImage] = useState(null);
@@ -74,7 +77,7 @@ const EmployeePage = () => {
             }
 
             const user = JSON.parse(userData);
-            const response = await axios.get('https://estate-craft.vercel.app/api/employee/advertisements', {
+            const response = await axios.get(`${BASE_URL}/api/employee/advertisements`, {
                 headers: { 
                     'Authorization': `Bearer ${user.token}`
                 }
@@ -101,7 +104,7 @@ const EmployeePage = () => {
             }
 
             const user = JSON.parse(userData);
-            const response = await axios.get('https://estate-craft.vercel.app/api/employee/revenue-stats', {
+            const response = await axios.get(`${BASE_URL}/api/employee/revenue-stats`, {
                 headers: { 
                     'Authorization': `Bearer ${user.token}`
                 }
@@ -163,7 +166,7 @@ const EmployeePage = () => {
             }
 
             if (editingId) {
-                await axios.put(`https://estate-craft.vercel.app/api/employee/advertisement/${editingId}`, formData, {
+                await axios.put(`${BASE_URL}/api/employee/advertisement/${editingId}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         'Authorization': `Bearer ${user.token}`
@@ -171,7 +174,7 @@ const EmployeePage = () => {
                 });
                 toast.success('Advertisement updated successfully!');
             } else {
-                await axios.post('https://estate-craft.vercel.app/api/employee/advertisement', formData, {
+                await axios.post(`${BASE_URL}/api/employee/advertisement`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         'Authorization': `Bearer ${user.token}`
@@ -219,7 +222,7 @@ const EmployeePage = () => {
                 const userData = localStorage.getItem('user');
                 const user = JSON.parse(userData);
                 
-                await axios.delete(`https://estate-craft.vercel.app/api/employee/advertisement/${id}`, {
+                await axios.delete(`${BASE_URL}/api/employee/advertisement/${id}`, {
                     headers: { 
                         'Authorization': `Bearer ${user.token}`
                     }
@@ -244,7 +247,7 @@ const EmployeePage = () => {
                 : null;
 
             const response = await axios.get(
-                'https://estate-craft.vercel.app/api/employee/advertisement-requests',
+                `${BASE_URL}/api/employee/advertisement-requests`,
                 {
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -273,7 +276,7 @@ const EmployeePage = () => {
             console.log('Sending update request:', { requestId, status: newStatus });
 
             const response = await axios.patch(
-                'https://estate-craft.vercel.app/api/employee/advertisement-request/status',
+                `${BASE_URL}/api/employee/advertisement-request/status`,
                 {
                     requestId,
                     status: newStatus

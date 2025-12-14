@@ -8,6 +8,11 @@ import { useDispatch } from 'react-redux';
 import { logoutUser } from '../redux/slices/authSlice';
 import { FaUser, FaLock, FaEnvelope } from 'react-icons/fa';
 
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
+
+
+
 const Input = styled.input`
   padding: 12px;
   border: 1.5px solid #999;
@@ -80,7 +85,7 @@ const AdminPage = () => {
   const fetchDashboardData = async () => {
     try {
       const token = authService.getToken();
-      const response = await axios.get('https://estate-craft.vercel.app/api/admin/dashboard-stats', {
+      const response = await axios.get(`${BASE_URL}/api/admin/dashboard-stats`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setStats(response.data);
@@ -106,7 +111,7 @@ const AdminPage = () => {
       });
 
       const response = await axios.get(
-        `https://estate-craft.vercel.app/api/admin/dashboard-stats?${queryParams}`,
+        `${BASE_URL}/api/admin/dashboard-stats?${queryParams}`,
         {
           headers: { Authorization: `Bearer ${token}` }
         }
@@ -136,7 +141,7 @@ const AdminPage = () => {
   const handleDeleteUser = async (id) => {
     try {
       const token = authService.getToken();
-      await axios.delete(`https://estate-craft.vercel.app/api/admin/users/${id}`, {
+      await axios.delete(`${BASE_URL}/api/admin/users/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchDashboardData();
@@ -150,7 +155,7 @@ const AdminPage = () => {
     try {
       const token = authService.getToken();
       const response = await axios.delete(
-        `https://estate-craft.vercel.app/api/admin/properties/${id}`,
+        `${BASE_URL}/api/admin/properties/${id}`,
         {
           headers: { Authorization: `Bearer ${token}` }
         }
@@ -169,7 +174,7 @@ const AdminPage = () => {
     try {
       const token = authService.getToken();
       const response = await axios.delete(
-        `https://estate-craft.vercel.app/api/admin/feedback/${id}`,
+        `${BASE_URL}/api/admin/feedback/${id}`,
         {
           headers: { Authorization: `Bearer ${token}` }
         }
@@ -198,7 +203,7 @@ const AdminPage = () => {
     try {
       const token = authService.getToken();
       await axios.post(
-        'https://estate-craft.vercel.app/api/admin/add-employee',
+        `${BASE_URL}/api/admin/add-employee`,
         formValues,
         {
           headers: { Authorization: `Bearer ${token}` }

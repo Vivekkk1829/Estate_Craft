@@ -29,6 +29,9 @@ import { logoutUser } from "../redux/slices/authSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
+
 const PageWrapper = styled.div`
   background-color: ${colors.background};
   min-height: 100vh;
@@ -451,7 +454,7 @@ const BuyerPage = () => {
       });
 
       const response = await axios.get(
-        `https://estate-craft.vercel.app/api/buyer/properties?${queryParams.toString()}`,
+        `${BASE_URL}/api/buyer/properties?${queryParams.toString()}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -471,7 +474,7 @@ const BuyerPage = () => {
     try {
       const token = authService.getToken();
       const response = await axios.get(
-        "https://estate-craft.vercel.app/api/buyer/favorites",
+        `${BASE_URL}/api/buyer/favorites`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -487,7 +490,7 @@ const BuyerPage = () => {
     try {
       const token = authService.getToken();
       const response = await axios.get(
-        "https://estate-craft.vercel.app/api/buyer/purchased",
+        `${BASE_URL}/api/buyer/purchased`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -506,14 +509,14 @@ const BuyerPage = () => {
 
       if (isFavorite) {
         await axios.delete(
-          `https://estate-craft.vercel.app/api/buyer/favorites/${propertyId}`,
+          `${BASE_URL}/api/buyer/favorites/${propertyId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
       } else {
         await axios.post(
-          "https://estate-craft.vercel.app/api/buyer/favorites",
+          `${BASE_URL}/api/buyer/favorites`,
           { propertyId },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -537,7 +540,7 @@ const BuyerPage = () => {
     try {
       const token = authService.getToken();
       const response = await axios.post(
-        "https://estate-craft.vercel.app/api/buyer/purchase",
+        `${BASE_URL}/api/buyer/purchase`,
         {
           propertyId,
           price,
@@ -585,7 +588,7 @@ const BuyerPage = () => {
         try {
           const token = authService.getToken();
           const response = await axios.get(
-            "https://estate-craft.vercel.app/api/buyer/properties",
+            `${BASE_URL}/api/buyer/properties`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,

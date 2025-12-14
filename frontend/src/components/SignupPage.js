@@ -4,6 +4,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import { authStyles as styles } from '../styles/AuthStyles';
 import { FaUser, FaLock, FaEnvelope, FaUserTag } from 'react-icons/fa';
 
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
+
 const SignupPage = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -16,7 +19,7 @@ const SignupPage = () => {
         e.preventDefault();
         setError('');
         try {
-            await axios.post('https://estate-craft.vercel.app/api/users/signup', { name, email, password, role });
+            await axios.post(`${BASE_URL}/api/users/signup`, { name, email, password, role });
             navigate('/login');
         } catch (err) {
             setError('Something went wrong, please try again.');

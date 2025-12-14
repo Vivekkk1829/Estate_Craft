@@ -4,6 +4,9 @@ import { useSelector } from 'react-redux';
 import { selectToken } from '../redux/slices/authSlice';
 import { toast } from 'react-toastify';
 
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
+
 const PurchasedPropertiesPage = () => {
     const [purchasedProperties, setPurchasedProperties] = useState([]);
     const token = useSelector(selectToken);
@@ -11,7 +14,7 @@ const PurchasedPropertiesPage = () => {
     useEffect(() => {
         const fetchPurchasedProperties = async () => {
             try {
-                const response = await axios.get('https://estate-craft.vercel.app/api/buyer/purchased-properties', {
+                const response = await axios.get(`${BASE_URL}/api/buyer/purchased-properties`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

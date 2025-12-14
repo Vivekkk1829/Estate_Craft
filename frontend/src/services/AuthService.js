@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';  
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
 
 export const login = async (email, password) => {
     try {
-        const response = await axios.post('https://estate-craft.vercel.app/api/users/login', { email, password });
+        const response = await axios.post(`${BASE_URL}/api/users/login`, { email, password });
         const token = response.data.token;
         const decodedToken = jwtDecode(token);
         const user = { ...decodedToken, token };

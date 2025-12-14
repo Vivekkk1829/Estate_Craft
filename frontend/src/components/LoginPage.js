@@ -7,6 +7,9 @@ import { playLoginSound } from '../utils/soundEffects';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '../redux/slices/authSlice';
 
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
+
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,7 +21,7 @@ const LoginPage = () => {
         e.preventDefault();
         setError('');
         try {
-            const response = await axios.post('https://estate-craft.vercel.app/api/users/login', { 
+            const response = await axios.post(`${BASE_URL}/api/users/login`, { 
                 email, 
                 password 
             });

@@ -15,6 +15,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
 import { Pie, Bar } from 'react-chartjs-2';
 
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
+
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
 // Styled components remain unchanged; they are included here for completeness
@@ -652,7 +655,7 @@ const SellerPage = () => {
     try {
       const token = authService.getToken();
       
-      const adRequestResponse = await axios.post('https://estate-craft.vercel.app/api/seller/advertise', {
+      const adRequestResponse = await axios.post(`${BASE_URL}/api/seller/advertise`, {
         propertyId,
         amount: 10000,
         currency: 'usd',
@@ -689,7 +692,7 @@ const SellerPage = () => {
 
     try {
       const token = authService.getToken();
-      await axios.post('https://estate-craft.vercel.app/api/seller/property', submitData, {
+      await axios.post(`${BASE_URL}/api/seller/property`, submitData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -717,7 +720,7 @@ const SellerPage = () => {
     setLoading(true);
     try {
       const token = authService.getToken();
-      const response = await axios.get('https://estate-craft.vercel.app/api/seller/myProperty', {
+      const response = await axios.get(`${BASE_URL}/api/seller/myProperty`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMyProperties(response.data);
@@ -731,7 +734,7 @@ const SellerPage = () => {
   const fetchAdvertisementRequests = async () => {
     try {
       const token = authService.getToken();
-      const response = await axios.get('https://estate-craft.vercel.app/api/seller/advertisement-status', {
+      const response = await axios.get(`${BASE_URL}/api/seller/advertisement-status`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setAdvertisementRequests(response.data);
@@ -745,7 +748,7 @@ const SellerPage = () => {
     if (window.confirm('Are you sure you want to delete this property?')) {
       try {
         const token = authService.getToken();
-        await axios.post('https://estate-craft.vercel.app/api/seller/delete-property', 
+        await axios.post(`${BASE_URL}/api/seller/delete-property`, 
           { propertyId },
           {
             headers: {

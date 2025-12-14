@@ -4,6 +4,10 @@ import styled from "styled-components";
 import { FaMapMarkerAlt, FaBed, FaBath, FaRulerCombined, FaHome, FaRegClock, FaUser, FaEnvelope } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
 
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
+
+
 const PageContainer = styled.div`
     padding: 20px;
     font-family: Arial, sans-serif;
@@ -139,7 +143,7 @@ const AdvertisementPage = () => {
     useEffect(() => {
         const fetchAdvertisements = async () => {
             try {
-                const response = await axios.get("https://estate-craft.vercel.app/api/adv/Advertisement");
+                const response = await axios.get(`${BASE_URL}/api/adv/Advertisement`);
                 console.log("Advertisement data:", response.data);
                 setAdvertisements(response.data);
             } catch (error) {
