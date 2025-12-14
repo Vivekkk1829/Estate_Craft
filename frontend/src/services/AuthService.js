@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 
 export const login = async (email, password) => {
     try {
-        const response = await axios.post('https://real-estate-delta-tawny.vercel.app/api/users/login', { email, password });
+        const response = await axios.post('https://estate-craft.vercel.app/api/users/login', { email, password });
         const token = response.data.token;
         const decodedToken = jwtDecode(token);
         const user = { ...decodedToken, token };

@@ -11,7 +11,7 @@ const PurchasedPropertiesPage = () => {
     useEffect(() => {
         const fetchPurchasedProperties = async () => {
             try {
-                const response = await axios.get('https://realestate-9evw.onrender.com/api/buyer/purchased-properties', {
+                const response = await axios.get('https://estate-craft.vercel.app/api/buyer/purchased-properties', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

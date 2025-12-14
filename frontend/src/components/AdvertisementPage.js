@@ -139,7 +139,7 @@ const AdvertisementPage = () => {
     useEffect(() => {
         const fetchAdvertisements = async () => {
             try {
-                const response = await axios.get("https://realestate-9evw.onrender.com/api/adv/Advertisement");
+                const response = await axios.get("https://estate-craft.vercel.app/api/adv/Advertisement");
                 console.log("Advertisement data:", response.data);
                 setAdvertisements(response.data);
             } catch (error) {
